@@ -41,14 +41,15 @@
 
         <card class="p-8 space-y-4 mb-8">
             <p>
-                Choose a resource to import this data into.
+                Choose a resource to import this data into - and yes the dev works!
             </p>
 
             <div class="inline-flex items-center">
                 <b>Resource:</b>
                 <SelectControl @change="(value) => resource = value" :selected="resource" class="ml-4">
                     <option value="">- Select a resource -</option>
-                    <option v-for="(label, index) in resources" :value="index">{{ label }}</option>
+                    <!--<option v-for="(label, index) in resources" :value="index">{{ label }}</option>-->
+                  <option value="contacts">Contacts</option>
                 </SelectControl>
             </div>
         </card>
@@ -79,11 +80,11 @@
                     </thead>
                     <tbody>
                         <tr v-for="field in fields[resource]" class="border-b">
-                            <td class="pr-2">
+                            <td class="pr-2" v-show="field.name != 'User'">
                                 <span class="font-bold">{{ field.name }}</span><br>
                                 <small class="text-grey-300">{{ field.attribute }}</small>
                             </td>
-                            <td class="space-y-2">
+                            <td class="space-y-2"  v-show="field.name != 'User'">
                                 <SelectControl @change="(value) => mappings[field.attribute] = value" :selected="mappings[field.attribute]">
                                     <option value="" v-if="field.rules.includes('required')" disabled>- This field is required -</option>
                                     <option value="" v-else>- Leave field empty -</option>
